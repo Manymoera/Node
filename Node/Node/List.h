@@ -1,0 +1,151 @@
+#pragma once
+#include "TNode.h";
+#include "iostream";
+class LinList
+{
+private:
+	TNode* head;
+	TNode* cur;
+public:
+	LinList()
+	{
+		head = nullptr;
+	}
+	~LinList()
+	{
+		delete head;
+	}
+	void add(int a)
+	{
+		TNode* p = new TNode(a);
+		if (head == 0)
+		{
+			head = p;
+		}
+		else
+		{
+			TNode* current = head->getNext();
+			while ((current != 0) && (current->getNext() != 0))
+			{
+				current = current->getNext();
+			}
+			current->setNext(p);
+		}
+	}
+	LinList(const LinList &tmp)
+	{
+		if (tmp.head == 0)
+		{
+			head = 0;
+		}
+		else
+		{
+			head = new TNode(*(tmp.head));
+		}
+		TNode* current = tmp.head->getNext();
+		while (current != 0)
+		{
+			TNode* p = new TNode(current->getInfo());
+			this->add(int(p));
+			current = current->getNext();
+		}
+	}
+	LinList& operator=(LinList tmp)
+	{
+		if (tmp.head == 0)
+		{
+			delete head;
+			head = 0;
+		}
+		else
+		{
+			delete head;
+			head = new TNode(tmp.head->getInfo());
+		}
+		TNode* cur = tmp.head->getNext();
+		TNode* new_cur = head;
+		tmp.cur = cur;
+		while (cur != 0)
+		{
+			TNode* p = new TNode(tmp.cur->getInfo());
+			new_cur->setNext(p);
+			cur = cur->getNext();
+		}
+		return *this;
+	}
+	//Удалить все звенья за звеном с максимальной информацией
+	void deleteNextMax()
+	{
+		int max = -INT_MAX;
+		TNode* p = nullptr;
+		TNode* current = head;
+		while (current != 0)
+		{
+			if (current->getInfo() > max)
+			{
+				max = current->getInfo();
+				p = current;
+			}
+			current = current->getNext();
+		}
+		if (p != nullptr)
+		{
+			current = p->getNext();
+			while (current != 0)
+			{
+				p->setNext(current->getNext());
+				current->setNext(nullptr);
+				delete current;
+				current = p->getNext();
+			}
+		}
+	}
+	//Задана инфа, которую надо вставить в список после к-го звена
+	void insert(int k, int a)
+	{
+		int i;
+		TNode* p = head;
+		for (i = 0; (i < k) && (p != 0); i++)
+		{
+			p = p->getNext();
+		}
+		if (i == k)
+		{
+			TNode* current = new TNode(a);
+			current->setNext(p->getNext());
+			p->setNext(current);
+		}
+	}
+	//Удалить из списка все звенья содержащие нулевую инфу
+	void deletenullinfo()
+	{
+		TNode* p = head;
+		while ((p != 0) && (p->getInfo() != 0));
+		{
+			head = p->getNext();
+			p->setNext(nullptr);
+			delete p;
+			p = head;
+		}
+		if (p->getInfo() != 0)
+		{
+			TNode* prev = head;
+			TNode* current = p->getNext();
+			while (current != nullptr)
+			{
+				if (current->getInfo() == 0)
+				{
+					prev->setNext(current->getNext());
+					current->setNext(nullptr);
+					delete current;
+					current = prev->getNext();
+				}
+				else
+				{
+					prev = current;
+					current = current->getNext();
+				}
+			}
+		}
+	}
+};
