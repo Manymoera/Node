@@ -5,11 +5,7 @@ class TNode {
     TNode* next;
 
 public:
-    TNode(int _info = 0)
-    {
-        info = _info;
-        next = nullptr;
-    }
+    TNode(int _info = 0);
     TNode(const TNode& tmp);
     ~TNode();
 

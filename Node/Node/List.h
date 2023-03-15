@@ -1,6 +1,7 @@
 #pragma once
 #include "TNode.h";
 #include "iostream";
+using namespace std;
 class LinList
 {
 private:
@@ -17,19 +18,20 @@ public:
 	}
 	void add(int a)
 	{
-		TNode* p = new TNode(a);
-		if (head == 0)
+		TNode* newNode = new TNode(a);
+		TNode* current = head;
+		if (head == nullptr)
 		{
-			head = p;
+			head = newNode;
 		}
 		else
 		{
-			TNode* current = head->getNext();
-			while ((current != 0) && (current->getNext() != 0))
+			while (current->getNext() != nullptr)
 			{
 				current = current->getNext();
 			}
-			current->setNext(p);
+
+			current->setNext(newNode);
 		}
 	}
 	LinList(const LinList &tmp)
@@ -42,11 +44,25 @@ public:
 		{
 			head = new TNode(*(tmp.head));
 		}
-		TNode* current = tmp.head->getNext();
-		while (current != 0)
+		TNode* cur = tmp.head->getNext();
+		while (cur != 0)
 		{
-			TNode* p = new TNode(current->getInfo());
+			TNode* p = new TNode(cur->getInfo());
 			this->add(int(p));
+			cur = cur->getNext();
+		}
+	}
+	bool isEmpty()
+	{
+		return head == nullptr;
+	}
+	void Print()
+	{
+		TNode* current = head;
+
+		while (current != nullptr)
+		{
+			std::cout << current->getInfo() << " ";
 			current = current->getNext();
 		}
 	}
@@ -64,7 +80,6 @@ public:
 		}
 		TNode* cur = tmp.head->getNext();
 		TNode* new_cur = head;
-		tmp.cur = cur;
 		while (cur != 0)
 		{
 			TNode* p = new TNode(tmp.cur->getInfo());

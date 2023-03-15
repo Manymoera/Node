@@ -1,0 +1,7 @@
+﻿  Node.cpp
+D:\C++ Programms\Node\Node\List.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\C++ Programms\Node\Node\List.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\C++ Programms\Node\Node\List.h(51,1): warning C4311: '<function-style-cast>': pointer truncation from 'TNode *' to 'int'
+D:\C++ Programms\Node\Node\List.h(51,1): warning C4302: '<function-style-cast>': truncation from 'TNode *' to 'int'
+D:\C++ Programms\Node\Node\Node.cpp(6,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Node.vcxproj -> D:\C++ Programms\Node\x64\Debug\Node.exe
